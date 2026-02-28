@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=89ft0plwk0"></script>
 </head>
 <body>
 
@@ -28,8 +29,7 @@
         <li><a href="#facility">시설</a></li>
         <li><a href="#timetable">시간표</a></li>
         <li><a href="#reviews">후기</a></li>
-        <li><a href="https://naver.me/5JqKhI88" target="_blank" class="nav-cta">광장점 지도</a></li>
-        <li><a href="https://naver.me/Gy3vB6Jj" target="_blank" class="nav-cta">강동점 지도</a></li>
+        <li><a href="#contact" class="nav-cta">상담 신청</a></li>
       </ul>
       <button class="nav-mobile-toggle" id="mobileToggle" aria-label="메뉴">
         <span></span><span></span><span></span>
@@ -336,25 +336,33 @@
     </div>
   </section>
 
-  <!-- LOCATION -->
-  <section class="section" id="location">
-    <div class="container">
-      <div class="reveal">
-        <div class="section-label">LOCATION</div>
-        <h2 class="section-title">찾아오시는 길</h2>
-      </div>
-      <div class="location-grid reveal">
-        <div class="location-card">
-          <div class="location-map"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3163.5!2d127.085!3d37.545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDMyJzQyLjAiTiAxMjfCsDA1JzA2LjAiRQ!5e0!3m2!1sko!2skr!4v1" allowfullscreen loading="lazy"></iframe></div>
-          <div class="location-info"><h3>광장점</h3><p>📍 서울시 광진구 구의강변로106 삼성쉐르빌 2층</p><p>📞 02-6072-0833</p></div>
+<!-- LOCATION -->
+<section class="section" id="location">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">LOCATION</div>
+      <h2 class="section-title">찾아오시는 길</h2>
+    </div>
+    <div class="location-grid reveal">
+      <div class="location-card">
+        <div class="location-map" id="map-gwangjang" style="width:100%;height:300px;"></div>
+        <div class="location-info">
+          <h3>광장점</h3>
+          <p>📍 서울시 광진구 구의강변로106 삼성쉐르빌 2층</p>
+          <a href="https://naver.me/5JqKhI88" target="_blank" class="btn btn-outline" style="margin-top:12px;display:inline-block;">네이버 지도에서 보기</a>
         </div>
-        <div class="location-card">
-          <div class="location-map"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3164.5!2d127.139!3d37.536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDMyJzEwLjAiTiAxMjfCsDA4JzIwLjAiRQ!5e0!3m2!1sko!2skr!4v1" allowfullscreen loading="lazy"></iframe></div>
-          <div class="location-info"><h3>강동점</h3><p>📍 서울시 강동구 양재대로 1464 남경빌딩 3층</p><p>📞 02-6072-0833</p></div>
+      </div>
+      <div class="location-card">
+        <div class="location-map" id="map-gangdong" style="width:100%;height:300px;"></div>
+        <div class="location-info">
+          <h3>강동점</h3>
+          <p>📍 서울시 강동구 양재대로 1464 남경빌딩 3층</p>
+          <a href="https://naver.me/Gy3vB6Jj" target="_blank" class="btn btn-outline" style="margin-top:12px;display:inline-block;">네이버 지도에서 보기</a>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- CTA -->
   <section class="cta-section" id="contact">
