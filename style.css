@@ -72,11 +72,16 @@ img{max-width:100%;display:block}
 .numbers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:32px}
 .number-card{text-align:center;padding:40px 20px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius);transition:var(--transition)}
 .number-card:hover{background:rgba(255,255,255,0.1);transform:translateY(-4px)}
-.number-value{font-size:clamp(48px,6vw,72px);font-weight:900;color:var(--accent);line-height:1;margin-bottom:12px}
+.number-value{font-size:clamp(36px,5vw,56px);font-weight:900;color:var(--accent);line-height:1;margin-bottom:12px}
 .number-label{font-size:18px;font-weight:700;color:var(--white);margin-bottom:4px}
 .number-desc{font-size:14px;color:rgba(255,255,255,0.5)}
 
 /* ===== MANAGEMENT SYSTEM ===== */
+.system-bg{position:relative;background:url('system-bg.jpg') center/cover no-repeat fixed;}
+.system-bg::before{content:"";position:absolute;inset:0;background:rgba(15,22,41,0.82);z-index:0}
+.system-bg .container{position:relative;z-index:1}
+.system-bg .section-title{color:var(--white)}
+.system-bg .section-desc{color:rgba(255,255,255,0.7)}
 .mgmt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px}
 .mgmt-card{background:var(--white);padding:32px;border-radius:var(--radius);box-shadow:var(--shadow);transition:var(--transition)}
 .mgmt-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(15,22,41,0.12)}
@@ -188,7 +193,8 @@ img{max-width:100%;display:block}
 /* ===== RESPONSIVE ===== */
 @media(max-width:1024px){
   .mgmt-grid,.ai-grid{grid-template-columns:repeat(2,1fr)}
-  .numbers-grid,.facility-features,.pricing-grid{grid-template-columns:repeat(2,1fr)}
+  .numbers-grid{grid-template-columns:repeat(4,1fr)!important}
+  .facility-features,.pricing-grid{grid-template-columns:repeat(2,1fr)}
   .timetable-wrap{grid-template-columns:1fr}
 }
 @media(max-width:768px){
@@ -197,7 +203,8 @@ img{max-width:100%;display:block}
   .nav-mobile-toggle{display:block}
   .about-grid,.mentor-grid,.location-grid{grid-template-columns:1fr}
   .mgmt-grid,.reviews-slider,.ai-grid{grid-template-columns:1fr}
-  .numbers-grid,.facility-features,.pricing-grid{grid-template-columns:1fr}
+  .numbers-grid{grid-template-columns:repeat(2,1fr)!important}
+  .facility-features,.pricing-grid{grid-template-columns:1fr}
   .footer-inner{grid-template-columns:1fr}
   .hero h1{font-size:32px}
   .number-value{font-size:48px}
