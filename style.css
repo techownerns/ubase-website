@@ -28,7 +28,8 @@ img{max-width:100%;display:block}
 .nav-logo{display:flex;align-items:center;gap:8px;font-size:20px;font-weight:800;color:var(--white)}
 .nav.scrolled .nav-logo{color:var(--primary)}
 .nav-logo-icon{width:32px;height:32px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;border-radius:8px;font-weight:900;font-size:16px}
-.nav-logo-img{height:36px;width:auto}
+.nav-logo-img{height:36px;width:auto;filter:brightness(0) invert(1);transition:var(--transition)}
+.nav.scrolled .nav-logo-img{filter:none}
 .nav-links{display:flex;align-items:center;gap:28px}
 .nav-links a{font-size:14px;font-weight:500;color:rgba(255,255,255,0.85);transition:var(--transition)}
 .nav.scrolled .nav-links a{color:var(--gray-600)}
