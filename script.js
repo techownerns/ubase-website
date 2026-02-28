@@ -61,7 +61,7 @@ numberEls.forEach(el => numberObs.observe(el));
 // 네이버 지도 초기화
 function initNaverMaps() {
   // 광장점 (서울시 광진구 구의강변로106)
-  var gwangjangPos = new naver.maps.LatLng(37.5465, 127.0940);
+  var gwangjangPos = new naver.maps.LatLng(37.5399, 127.0948);
   var mapGwangjang = new naver.maps.Map('map-gwangjang', {
     center: gwangjangPos,
     zoom: 16,
@@ -77,7 +77,7 @@ function initNaverMaps() {
   });
 
   // 강동점 (서울시 강동구 양재대로 1464)
-  var gangdongPos = new naver.maps.LatLng(37.5350, 127.1320);
+  var gangdongPos = new naver.maps.LatLng(37.5365, 127.1398);
   var mapGangdong = new naver.maps.Map('map-gangdong', {
     center: gangdongPos,
     zoom: 16,
