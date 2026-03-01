@@ -187,7 +187,7 @@ img{max-width:100%;display:block}
 .system-step-reverse{direction:rtl}
 .system-step-reverse>*{direction:ltr}
 .system-step-text{padding:60px 60px;display:flex;flex-direction:column;justify-content:center;background:var(--gray-50)}
-.system-step-num{font-size:clamp(48px,5vw,72px);font-weight:900;color:rgba(0,0,0,0.06);line-height:1;margin-bottom:16px;display:block}
+.system-step-num{font-size:clamp(48px,5vw,72px);font-weight:900;color:var(--accent);opacity:0.2;line-height:1;margin-bottom:16px;display:block}
 .system-step-text h3{font-size:24px;font-weight:800;color:var(--primary);margin-bottom:14px}
 .system-step-text p{font-size:16px;color:var(--gray-600);line-height:1.8;margin-bottom:20px}
 .system-step-text ul{display:flex;flex-direction:column;gap:10px}
