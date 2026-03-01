@@ -51,6 +51,7 @@ navLinks.querySelectorAll('a').forEach(a => {
 // ===== HERO MOUSE PARALLAX =====
 (function() {
   const hero = document.getElementById('hero');
+  const heroYear = hero.querySelector('.hero-year');
   const heroBadge = hero.querySelector('.hero-badge');
   const heroH1 = hero.querySelector('h1');
   const heroDesc = hero.querySelector('.hero-desc');
@@ -73,6 +74,7 @@ navLinks.querySelectorAll('a').forEach(a => {
     currentX += (mouseX - currentX) * 0.06;
     currentY += (mouseY - currentY) * 0.06;
 
+    if (heroYear) heroYear.style.transform = 'translate(' + (currentX * -15) + 'px,' + (currentY * -12) + 'px)';
     if (heroBadge) heroBadge.style.transform = 'translate(' + (currentX * -8) + 'px,' + (currentY * -8) + 'px)';
     if (heroH1) heroH1.style.transform = 'translate(' + (currentX * -15) + 'px,' + (currentY * -12) + 'px)';
     if (heroDesc) heroDesc.style.transform = 'translate(' + (currentX * -10) + 'px,' + (currentY * -8) + 'px)';
