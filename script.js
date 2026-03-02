@@ -205,8 +205,46 @@ if (document.readyState === 'complete') {
   window.addEventListener('load', initNaverMaps);
 }
 
-// 멘토 경제학과 텍스트 전환
-setTimeout(function(){
+// ===== 박예지 멘토 카드 반복 사이클 =====
+(function(){
+  var logo=document.querySelector('.mentor-univ-logo');
+  var logoImg=logo?logo.querySelector('img'):null;
+  var dept=document.getElementById('deptFloat');
+  var video=document.getElementById('parkVideo');
   var univ=document.getElementById('parkUniv');
-  if(univ){univ.style.transition='opacity 0.5s ease';univ.style.opacity='1';}
-},2200);
+  if(!logo||!dept||!video||!univ) return;
+
+  function resetEl(el){
+    el.style.animation='none';
+    el.offsetHeight;
+  }
+
+  function runCycle(){
+    // 1) 리셋
+    video.style.opacity='0';
+    univ.style.transition='none';univ.style.opacity='0';
+    resetEl(logo);resetEl(logoImg);resetEl(dept);
+
+    // 2) 로고+경제학과 애니메이션 시작
+    logo.style.animation='logoIntro 2.5s ease-in-out forwards';
+    logoImg.style.animation='logoSpin 2s ease-in-out forwards';
+    dept.style.animation='deptIntro 2.5s ease-in-out forwards';
+
+    // 3) 2초: 영상 페이드인 + 재생
+    setTimeout(function(){
+      video.currentTime=0;
+      video.style.opacity='1';
+      video.play();
+      univ.style.transition='opacity 0.5s ease';univ.style.opacity='1';
+    },2000);
+
+    // 4) 영상 끝나면 페이드아웃 후 다시 시작
+    video.onended=function(){
+      video.style.opacity='0';
+      univ.style.transition='opacity 0.5s ease';univ.style.opacity='0';
+      setTimeout(runCycle,1500);
+    };
+  }
+
+  runCycle();
+})();
