@@ -47,27 +47,7 @@ navLinks.querySelectorAll('a').forEach(a => {
     }
   });
 
-  // 클립 전환 페이드
-  var fadeTimes=[3.08,7.71,13.79];
-  var fadeDur=0.5;
-  var fading=false;
-  heroVideo.addEventListener('timeupdate',function(){
-    var t=heroVideo.currentTime;
-    if(fading) return;
-    for(var i=0;i<fadeTimes.length;i++){
-      if(t>=fadeTimes[i]-fadeDur/2&&t<=fadeTimes[i]+fadeDur/2){
-        fading=true;
-        heroVideo.style.transition='opacity 0.25s ease';
-        heroVideo.style.opacity='0';
-        setTimeout(function(){
-          heroVideo.style.transition='opacity 0.25s ease';
-          heroVideo.style.opacity='1';
-          fading=false;
-        },250);
-        break;
-      }
-    }
-  });
+
 })();
 
 // ===== HERO MOUSE PARALLAX =====
