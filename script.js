@@ -352,3 +352,37 @@ if (document.readyState === 'complete') {
     lastTap=now;
   });
 })();
+
+// ===== STICKY MOBILE CTA =====
+(function(){
+  var stickyCta = document.getElementById('stickyCta');
+  if(!stickyCta) return;
+  var heroH = window.innerHeight;
+  var shown = false;
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > heroH * 0.8 && !shown){
+      stickyCta.classList.add('visible');
+      shown = true;
+    } else if(window.scrollY <= heroH * 0.5 && shown){
+      stickyCta.classList.remove('visible');
+      shown = false;
+    }
+  });
+})();
+
+// ===== MAGNETIC BUTTONS =====
+(function(){
+  if(window.innerWidth <= 768) return;
+  var btns = document.querySelectorAll('.btn-magnetic');
+  btns.forEach(function(btn){
+    btn.addEventListener('mousemove', function(e){
+      var rect = btn.getBoundingClientRect();
+      var x = e.clientX - rect.left - rect.width / 2;
+      var y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = 'translate(' + (x * 0.3) + 'px,' + (y * 0.3) + 'px)';
+    });
+    btn.addEventListener('mouseleave', function(){
+      btn.style.transform = 'translate(0,0)';
+    });
+  });
+})();
