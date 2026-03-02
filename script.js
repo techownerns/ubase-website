@@ -235,3 +235,35 @@ if (document.readyState === 'complete') {
     },2400);
   });
 })();
+
+/* ── FACILITY GALLERY + LIGHTBOX ── */
+(function(){
+  const BASE='https://ohuqwtugvafcxfvwizqh.supabase.co/storage/v1/object/public/facility/';
+  const imgs=[];
+  for(let i=1;i<=17;i++) imgs.push(BASE+'facility-'+String(i).padStart(2,'0')+'.jpg');
+  const grid=document.getElementById('facilityGallery');
+  if(!grid)return;
+  imgs.forEach(function(src,i){
+    const img=document.createElement('img');
+    img.src=src;img.alt='유베이스 시설 '+(i+1);img.loading='lazy';
+    img.addEventListener('click',function(){openLightbox(i);});
+    grid.appendChild(img);
+  });
+  const lb=document.getElementById('lightbox');
+  const lbImg=document.getElementById('lightboxImg');
+  const lbCounter=document.getElementById('lightboxCounter');
+  let cur=0;
+  function openLightbox(i){cur=i;lb.classList.add('active');update();document.body.style.overflow='hidden';}
+  function closeLightbox(){lb.classList.remove('active');document.body.style.overflow='';}
+  function update(){lbImg.src=imgs[cur];lbCounter.textContent=(cur+1)+' / '+imgs.length;}
+  document.getElementById('lightboxClose').addEventListener('click',closeLightbox);
+  document.getElementById('lightboxPrev').addEventListener('click',function(){cur=(cur-1+imgs.length)%imgs.length;update();});
+  document.getElementById('lightboxNext').addEventListener('click',function(){cur=(cur+1)%imgs.length;update();});
+  lb.addEventListener('click',function(e){if(e.target===lb)closeLightbox();});
+  document.addEventListener('keydown',function(e){
+    if(!lb.classList.contains('active'))return;
+    if(e.key==='Escape')closeLightbox();
+    if(e.key==='ArrowLeft'){cur=(cur-1+imgs.length)%imgs.length;update();}
+    if(e.key==='ArrowRight'){cur=(cur+1)%imgs.length;update();}
+  });
+})();
