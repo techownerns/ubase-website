@@ -47,12 +47,18 @@ navLinks.querySelectorAll('a').forEach(a => {
     }
   });
 
+  var heroFocusApplied=false;
   heroVideo.addEventListener('timeupdate',function(){
     var t=heroVideo.currentTime;
-    if(t>=14){
+    if(t>=12.3&&!heroFocusApplied){
       heroVideo.style.objectPosition='70% center';
-    }else{
+      heroFocusApplied=true;
+    }
+  });
+  heroVideo.addEventListener('seeking',function(){
+    if(heroVideo.currentTime<1){
       heroVideo.style.objectPosition='center center';
+      heroFocusApplied=false;
     }
   });
 })();
