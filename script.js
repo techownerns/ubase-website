@@ -47,7 +47,13 @@ navLinks.querySelectorAll('a').forEach(a => {
     }
   });
 
-
+  heroVideo.addEventListener('timeupdate',function(){
+    if(heroVideo.currentTime>=14){
+      heroVideo.style.objectPosition='80% center';
+    }else{
+      heroVideo.style.objectPosition='center center';
+    }
+  });
 })();
 
 // ===== HERO MOUSE PARALLAX =====
