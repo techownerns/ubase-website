@@ -191,7 +191,7 @@ img{max-width:100%;display:block}
 /* ===== ABOUT ===== */
 .section-alt{background:var(--gray-50,#f8f9fa)}
 .about-stats{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;margin:40px 0}
-.about-stat-item{background:#fff;border-radius:16px;padding:32px 28px;text-align:center;width:240px;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:transform .3s,box-shadow .3s}
+.about-stat-item{background:#fff;border-radius:16px;padding:40px 32px;text-align:center;width:320px;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:transform .3s,box-shadow .3s}
 .about-stat-item:hover{transform:translateY(-6px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
 .about-stat-icon{display:flex;justify-content:center;margin-bottom:12px}
 .about-stat-num{font-size:32px;font-weight:800;color:var(--primary);display:block;margin-bottom:6px}
@@ -421,7 +421,7 @@ img{max-width:100%;display:block}
   .hero-year{font-size:36px}
   .number-value{font-size:48px}
   .mentor-grid{gap:32px}
-  .about-stat-item{width:100%;max-width:320px}
+  .about-stat-item{width:100%;max-width:360px}
   .about-stat-num{font-size:26px}
   /* sticky CTA 있을때 하단 여백 */
   .footer{padding-bottom:90px}
