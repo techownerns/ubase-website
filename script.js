@@ -257,20 +257,73 @@ const galleryItems = [
   {src:'facility-16.jpg',cap:'CCTV 관제'},
   {src:'facility-17.jpg',cap:'외관'}
 ];
-const galGrid = document.getElementById('facilityGallery');
-if(galGrid){
-  const showCount = 4;
-  const remaining = galleryItems.length - showCount;
-  galleryItems.slice(0, showCount).forEach((item, i) => {
+const track = document.getElementById('facilityGallery');
+if(track){
+  // 원본 + 복제본으로 무한루프용 슬라이드 생성
+  const allItems = [...galleryItems, ...galleryItems];
+  allItems.forEach((item, i) => {
     const d = document.createElement('div');
-    d.className = 'fgal-item' + (i === 0 ? ' fgal-hero' : '');
+    d.className = 'fgal-slide';
     d.innerHTML = `<img src="${defined}${item.src}" alt="${item.cap}" loading="lazy"><span class="fgal-cap">${item.cap}</span>`;
-    if(i === showCount - 1 && remaining > 0){
-      d.innerHTML += `<div class="fgal-more">+${remaining}<span>사진 더보기</span></div>`;
-    }
-    d.onclick = () => openLB(i);
-    galGrid.appendChild(d);
+    d.onclick = () => { if(!dragMoved) openLB(i % galleryItems.length); };
+    track.appendChild(d);
   });
+  // 자동 스크롤
+  let autoSpeed = 0.6;
+  let scrollPos = 0;
+  let rafId;
+  const halfW = () => track.scrollWidth / 2;
+  function autoScroll(){
+    scrollPos += autoSpeed;
+    if(scrollPos >= halfW()) scrollPos -= halfW();
+    track.scrollLeft = scrollPos;
+    rafId = requestAnimationFrame(autoScroll);
+  }
+  rafId = requestAnimationFrame(autoScroll);
+  // 드래그
+  let isDrag = false, dragMoved = false, startX, startScroll;
+  track.addEventListener('mousedown', e => {
+    isDrag = true; dragMoved = false;
+    startX = e.pageX; startScroll = scrollPos;
+    cancelAnimationFrame(rafId);
+    track.classList.add('grabbing');
+  });
+  window.addEventListener('mousemove', e => {
+    if(!isDrag) return;
+    const dx = e.pageX - startX;
+    if(Math.abs(dx) > 4) dragMoved = true;
+    scrollPos = startScroll - dx;
+    if(scrollPos < 0) scrollPos += halfW();
+    if(scrollPos >= halfW()) scrollPos -= halfW();
+    track.scrollLeft = scrollPos;
+  });
+  window.addEventListener('mouseup', () => {
+    if(!isDrag) return;
+    isDrag = false;
+    track.classList.remove('grabbing');
+    rafId = requestAnimationFrame(autoScroll);
+  });
+  // 터치
+  let touchX;
+  track.addEventListener('touchstart', e => {
+    cancelAnimationFrame(rafId);
+    touchX = e.touches[0].pageX; startScroll = scrollPos;
+    dragMoved = false;
+  }, {passive:true});
+  track.addEventListener('touchmove', e => {
+    const dx = e.touches[0].pageX - touchX;
+    if(Math.abs(dx) > 4) dragMoved = true;
+    scrollPos = startScroll - dx;
+    if(scrollPos < 0) scrollPos += halfW();
+    if(scrollPos >= halfW()) scrollPos -= halfW();
+    track.scrollLeft = scrollPos;
+  }, {passive:true});
+  track.addEventListener('touchend', () => {
+    rafId = requestAnimationFrame(autoScroll);
+  });
+  // 호버 시 일시정지
+  track.addEventListener('mouseenter', () => { if(!isDrag) cancelAnimationFrame(rafId); });
+  track.addEventListener('mouseleave', () => { if(!isDrag) rafId = requestAnimationFrame(autoScroll); });
 }
 
 /* Lightbox */
