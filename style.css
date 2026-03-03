@@ -194,7 +194,7 @@ img{max-width:100%;display:block}
 .about-stat-item{background:#fff;border-radius:16px;padding:40px 32px;text-align:center;flex:1;min-width:280px;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:transform .3s,box-shadow .3s}
 .about-stat-item:hover{transform:translateY(-6px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
 .about-stat-icon{display:flex;justify-content:center;margin-bottom:12px}
-.about-stat-num{font-size:clamp(18px, 2vw, 22px);font-weight:800;color:var(--primary);display:block;margin-bottom:6px}
+.about-stat-num{font-size:20px;font-weight:800;color:var(--primary);display:block;margin-bottom:6px}
 .about-stat-desc{font-size:18px;color:#666;line-height:1.5}
 .about-hook{text-align:center;font-size:18px;color:#444;margin-top:36px;line-height:1.8}
 .about-hook strong{color:var(--primary)}
