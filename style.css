@@ -190,11 +190,13 @@ img{max-width:100%;display:block}
 
 /* ===== ABOUT ===== */
 .section-alt{background:var(--gray-50,#f8f9fa)}
-.about-stats{display:flex;justify-content:center;gap:48px;margin:48px 0 40px;flex-wrap:wrap}
-.about-stat-item{text-align:center}
-.about-stat-num{display:block;font-size:36px;font-weight:800;color:var(--primary);line-height:1.2}
-.about-stat-desc{display:block;font-size:14px;color:var(--gray-500);margin-top:8px}
-.about-hook{text-align:center;font-size:18px;color:var(--gray-600);line-height:1.8}
+.about-stats{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;margin:40px 0}
+.about-stat-item{background:#fff;border-radius:16px;padding:32px 28px;text-align:center;width:240px;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:transform .3s,box-shadow .3s}
+.about-stat-item:hover{transform:translateY(-6px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.about-stat-icon{font-size:36px;margin-bottom:12px;display:block}
+.about-stat-num{font-size:32px;font-weight:800;color:var(--primary);display:block;margin-bottom:6px}
+.about-stat-desc{font-size:14px;color:#666;line-height:1.5}
+.about-hook{text-align:center;font-size:17px;color:#444;margin-top:36px;line-height:1.8}
 .about-hook strong{color:var(--primary)}
 
 /* ===== NUMBERS ===== */
@@ -419,8 +421,8 @@ img{max-width:100%;display:block}
   .hero-year{font-size:36px}
   .number-value{font-size:48px}
   .mentor-grid{gap:32px}
-  .about-stats{gap:24px}
-  .about-stat-num{font-size:28px}
+  .about-stat-item{width:100%;max-width:320px}
+  .about-stat-num{font-size:26px}
   /* sticky CTA 있을때 하단 여백 */
   .footer{padding-bottom:90px}
 }
