@@ -2,20 +2,20 @@
 (function(){
   const wrap = document.querySelector('.slider-wrap');
   if(!wrap) return;
-  let isDown = false, startX, scrollLeft, autoId, pauseTimeout;
-  const SPEED = 1; // px per frame
+  let isDown = false, startX, scrollLeft, autoId, pauseTimeout, paused = false;
 
   function autoScroll(){
-    autoId = requestAnimationFrame(function tick(){
-      wrap.scrollLeft += SPEED;
-      // 무한 루프: 끝에 도달하면 처음으로
+    paused = false;
+    clearInterval(autoId);
+    autoId = setInterval(function(){
+      if(paused) return;
+      wrap.scrollLeft += 1;
       if(wrap.scrollLeft >= wrap.scrollWidth - wrap.clientWidth){
         wrap.scrollLeft = 0;
       }
-      autoId = requestAnimationFrame(tick);
-    });
+    }, 16);
   }
-  function stopAuto(){ cancelAnimationFrame(autoId); }
+  function stopAuto(){ paused = true; clearInterval(autoId); }
   function resumeAfterDelay(){
     clearTimeout(pauseTimeout);
     pauseTimeout = setTimeout(autoScroll, 3000);
