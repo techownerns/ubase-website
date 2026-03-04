@@ -505,12 +505,15 @@ img{max-width:100%;display:block}
   .nav-mobile-toggle{display:block}
   .mentor-grid,.location-grid{grid-template-columns:1fr}
   .mgmt-grid,.reviews-slider,.ai-grid{grid-template-columns:1fr}
-  .numbers-grid{grid-template-columns:repeat(2,1fr)}
+  .numbers-grid{grid-template-columns:repeat(2,1fr);gap:16px}
   .facility-features{grid-template-columns:1fr}
   .footer-inner{grid-template-columns:1fr}
   .hero h1{font-size:32px}
   .hero-year{font-size:36px}
-  .number-value{font-size:48px}
+  .number-value{font-size:36px}
+  .number-card{padding:32px 16px}
+  .number-label{font-size:16px}
+  .number-desc{font-size:14px}
   .mentor-grid{gap:32px}
   .research-cards{grid-template-columns:1fr}
   .support-item{flex-wrap:wrap;gap:8px}
@@ -536,6 +539,14 @@ img{max-width:100%;display:block}
 .fgal-slide:hover .fgal-cap{opacity:1}
 @media(max-width:768px){.facility-gallery-track .fgal-slide{flex:0 0 260px;height:180px}.fgal-cap{opacity:1}}
 @media(max-width:480px){.facility-gallery-track .fgal-slide{flex:0 0 220px;height:160px}}
+@media(max-width:480px){
+  .numbers-grid{grid-template-columns:1fr;gap:12px}
+  .number-card{padding:24px 20px}
+  .number-value{font-size:32px}
+  .number-label{font-size:15px}
+  .number-desc{font-size:14px}
+  .section-title{font-size:24px}
+}
 
 /* LIGHTBOX */
 .lightbox{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.95);z-index:9999;align-items:center;justify-content:center;flex-direction:column}
