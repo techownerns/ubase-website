@@ -371,12 +371,10 @@ const BUCKET_FULL = 'https://ohuqwtugvafcxfvwizqh.supabase.co/storage/v1/object/
 const THUMB_Q = '?width=400&height=300&resize=cover&quality=75';
 
 const facilityImages = [
-  /* study — 학습 공간 (20) */
-  {src:'facility-01.jpg',cap:'1인 독서실 전경',cat:'study'},
+  /* study — 학습 공간 (18) */
   {src:'facility-02.jpg',cap:'개인 독서 공간',cat:'study'},
-  {src:'facility-03.jpg',cap:'프리미엄 독서실',cat:'study'},
-  {src:'facility-04.jpg',cap:'휴게 공간',cat:'study'},
-  {src:'facility-06.jpg',cap:'로비',cat:'study'},
+  {src:'facility-04.jpg',cap:'독서실 전경',cat:'study'},
+  {src:'facility-10.jpg',cap:'개인 좌석',cat:'study'},
   {src:'b01_02.jpg',cat:'study'},{src:'b01_03.jpg',cat:'study'},
   {src:'b02_05.jpg',cat:'study'},
   {src:'b03_01.jpg',cat:'study'},{src:'b03_03.jpg',cat:'study'},
@@ -387,11 +385,10 @@ const facilityImages = [
   {src:'b13_02.jpg',cat:'study'},
   {src:'b14_01.jpg',cat:'study'},
   {src:'b17_01.jpg',cat:'study'},{src:'b17_02.jpg',cat:'study'},
-  /* building — 건물·환경 (13) */
-  {src:'facility-08.jpg',cap:'안면인식 턴게이트',cat:'building'},
-  {src:'facility-10.jpg',cap:'독서실 조명',cat:'building'},
+  /* building — 건물·환경 (12) */
+  {src:'facility-01.jpg',cap:'안면인식 턴게이트',cat:'building'},
+  {src:'facility-03.jpg',cap:'프리미엄 로비',cat:'building'},
   {src:'facility-11.jpg',cap:'복도',cat:'building'},
-  {src:'facility-17.jpg',cap:'외관',cat:'building'},
   {src:'b05_02.jpg',cat:'building'},
   {src:'b10_02.jpg',cat:'building'},
   {src:'b11_04.jpg',cat:'building'},
@@ -400,9 +397,12 @@ const facilityImages = [
   {src:'b17_05.jpg',cat:'building'},
   {src:'b19_01.jpg',cat:'building'},
   {src:'b20_03.jpg',cat:'building'},
-  /* amenity — 편의시설 (6) */
-  {src:'facility-15.jpg',cap:'사물함',cat:'amenity'},
-  {src:'facility-16.jpg',cap:'CCTV 관제',cat:'amenity'},
+  /* amenity — 편의시설 (9) */
+  {src:'facility-06.jpg',cap:'휴게 공간',cat:'amenity'},
+  {src:'facility-08.jpg',cap:'식당/휴게 공간',cat:'amenity'},
+  {src:'facility-15.jpg',cap:'상담실',cat:'amenity'},
+  {src:'facility-16.jpg',cap:'프린터/복합기',cat:'amenity'},
+  {src:'facility-17.jpg',cap:'휴게실 전경',cat:'amenity'},
   {src:'b03_05.jpg',cat:'amenity'},
   {src:'b08_02.jpg',cat:'amenity'},
   {src:'b12_03.jpg',cat:'amenity'},
