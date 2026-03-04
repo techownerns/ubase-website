@@ -275,9 +275,9 @@ img{max-width:100%;display:block}
 }
 .rs-card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--accent),#6B8DF7)}
 .rs-card:hover{transform:translateY(-6px);box-shadow:0 12px 36px rgba(0,0,0,0.10)}
-.rs-uni{display:flex;align-items:center;gap:10px;margin-bottom:18px}
-.rs-uni-logo{width:30px;height:30px;object-fit:contain;flex-shrink:0}
-.rs-uni-name{font-size:19px;font-weight:600;color:var(--gray-600);flex:1}
+.rs-uni{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.rs-uni-logo{height:28px;width:auto;max-width:80px;object-fit:contain;flex-shrink:0}
+.rs-uni-name{font-size:19px;font-weight:600;color:var(--gray-600);text-align:right}
 .rs-year{font-size:12px;font-weight:700;color:var(--accent);background:rgba(59,109,245,0.08);padding:3px 10px;border-radius:20px;white-space:nowrap}
 .rs-headline{font-size:19px;font-weight:800;color:var(--primary);line-height:1.4;margin-bottom:12px}
 .rs-desc{font-size:14px;color:var(--gray-600);line-height:1.7;margin-bottom:18px}
