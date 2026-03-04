@@ -55,6 +55,7 @@
   }
 
   // ── mouse ──
+  var downClientX = 0, downClientY = 0;
   wrap.addEventListener('mousedown', function(e){
     cancelAnimationFrame(rafId);
     pauseAnim();
@@ -63,6 +64,9 @@
     lastX = e.clientX;
     lastT = Date.now();
     velX = 0;
+    downClientX = e.clientX;
+    downClientY = e.clientY;
+    window._sliderDragged = false;
     wrap.classList.add('dragging','grabbing');
     track.style.transition = 'none';
   });
@@ -70,6 +74,9 @@
   document.addEventListener('mousemove', function(e){
     if(!isDown) return;
     e.preventDefault();
+    if(Math.abs(e.clientX - downClientX) > 5 || Math.abs(e.clientY - downClientY) > 5){
+      window._sliderDragged = true;
+    }
     const now = Date.now();
     const dt = Math.max(now - lastT, 1);
     velX = (e.clientX - lastX) / dt * 16; // 16ms 기준 속도
@@ -87,6 +94,7 @@
   });
 
   // ── touch ──
+  var touchDownX = 0;
   wrap.addEventListener('touchstart', function(e){
     cancelAnimationFrame(rafId);
     pauseAnim();
@@ -94,6 +102,8 @@
     lastX = startX;
     lastT = Date.now();
     velX = 0;
+    touchDownX = e.touches[0].clientX;
+    window._sliderDragged = false;
     wrap.classList.add('dragging');
     track.style.transition = 'none';
   },{passive:true});
@@ -102,6 +112,7 @@
     const now = Date.now();
     const dt = Math.max(now - lastT, 1);
     const cx = e.touches[0].clientX;
+    if(Math.abs(cx - touchDownX) > 5) window._sliderDragged = true;
     velX = (cx - lastX) / dt * 16;
     lastX = cx;
     lastT = now;
@@ -564,23 +575,13 @@ lbImg.addEventListener('touchend',function(e){
   var overlay = document.getElementById('rsModalOverlay');
   if(!overlay) return;
   var closeBtn = document.getElementById('rsModalClose');
-  var downX = 0, downY = 0;
-
-  // pointerdown 위치 저장 — 드래그 vs 클릭 판별용
-  var sliderWrap = document.querySelector('.slider-wrap');
-  if(sliderWrap){
-    sliderWrap.addEventListener('pointerdown', function(e){
-      downX = e.clientX;
-      downY = e.clientY;
-    });
-  }
 
   // data-modal 카드 클릭 가로채기
   document.addEventListener('click', function(e){
     var card = e.target.closest('[data-modal]');
     if(!card) return;
-    // 5px 이상 이동했으면 드래그 → 모달 열지 않음
-    if(Math.abs(e.clientX - downX) > 5 || Math.abs(e.clientY - downY) > 5) return;
+    // 슬라이더 드래그 중이면 모달 열지 않음
+    if(window._sliderDragged) return;
     e.preventDefault();
     overlay.classList.add('active');
     document.body.style.overflow = 'hidden';
