@@ -261,15 +261,16 @@ img{max-width:100%;display:block}
 .about-hook strong{color:var(--primary)}
 
 /* ===== RESEARCH AUTO-SLIDE ===== */
-.slider-wrap{position:relative;width:100%;overflow:hidden;padding:8px 0 16px}
-.slider-track{display:flex;gap:24px;width:max-content;animation:slideScroll 50s linear infinite}
-.slider-wrap:hover .slider-track{animation-play-state:paused}
-@keyframes slideScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.slider-wrap{position:relative;width:100%;overflow-x:auto;overflow-y:hidden;padding:8px 0 16px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;cursor:grab}
+.slider-wrap::-webkit-scrollbar{display:none}
+.slider-wrap.grabbing{cursor:grabbing}
+.slider-track{display:flex;gap:24px;width:max-content;padding:0 max(24px,calc((100vw - 1200px)/2))}
 .rs-card{
   flex:0 0 380px;background:var(--white);border-radius:20px;
   padding:36px 30px 30px;position:relative;overflow:hidden;
   box-shadow:0 2px 16px rgba(0,0,0,0.06);
   transition:transform 0.35s ease,box-shadow 0.35s ease;cursor:default;
+  scroll-snap-align:start;user-select:none;
 }
 .rs-card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--accent),#6B8DF7)}
 .rs-card:hover{transform:translateY(-6px);box-shadow:0 12px 36px rgba(0,0,0,0.10)}

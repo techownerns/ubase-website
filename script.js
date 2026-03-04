@@ -1,3 +1,56 @@
+// ===== RESEARCH SLIDER (swipe + auto-scroll) =====
+(function(){
+  const wrap = document.querySelector('.slider-wrap');
+  if(!wrap) return;
+  let isDown = false, startX, scrollLeft, autoId, pauseTimeout;
+  const SPEED = 0.5; // px per frame
+
+  function autoScroll(){
+    autoId = requestAnimationFrame(function tick(){
+      wrap.scrollLeft += SPEED;
+      // 무한 루프: 끝에 도달하면 처음으로
+      if(wrap.scrollLeft >= wrap.scrollWidth - wrap.clientWidth){
+        wrap.scrollLeft = 0;
+      }
+      autoId = requestAnimationFrame(tick);
+    });
+  }
+  function stopAuto(){ cancelAnimationFrame(autoId); }
+  function resumeAfterDelay(){
+    clearTimeout(pauseTimeout);
+    pauseTimeout = setTimeout(autoScroll, 3000);
+  }
+
+  // mouse drag
+  wrap.addEventListener('mousedown',function(e){
+    isDown = true; wrap.classList.add('grabbing');
+    startX = e.pageX - wrap.offsetLeft;
+    scrollLeft = wrap.scrollLeft; stopAuto();
+  });
+  wrap.addEventListener('mouseleave',function(){ if(isDown){isDown=false; wrap.classList.remove('grabbing'); resumeAfterDelay();} });
+  wrap.addEventListener('mouseup',function(){ isDown=false; wrap.classList.remove('grabbing'); resumeAfterDelay(); });
+  wrap.addEventListener('mousemove',function(e){
+    if(!isDown) return; e.preventDefault();
+    wrap.scrollLeft = scrollLeft - (e.pageX - wrap.offsetLeft - startX) * 1.5;
+  });
+
+  // touch
+  wrap.addEventListener('touchstart',function(e){
+    startX = e.touches[0].pageX - wrap.offsetLeft;
+    scrollLeft = wrap.scrollLeft; stopAuto();
+  },{passive:true});
+  wrap.addEventListener('touchend',function(){ resumeAfterDelay(); });
+  wrap.addEventListener('touchmove',function(e){
+    wrap.scrollLeft = scrollLeft - (e.touches[0].pageX - wrap.offsetLeft - startX);
+  },{passive:true});
+
+  // hover pause
+  wrap.addEventListener('mouseenter', stopAuto);
+  wrap.addEventListener('mouseleave', function(){ if(!isDown) resumeAfterDelay(); });
+
+  autoScroll();
+})();
+
 // ===== NAV SCROLL =====
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
