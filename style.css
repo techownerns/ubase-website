@@ -555,3 +555,23 @@ img{max-width:100%;display:block}
 .lb-thumb.active{opacity:1;border-color:#fff}
 .lb-thumb:hover{opacity:.8}
 @media(max-width:600px){.lightbox-prev,.lightbox-next{padding:10px 14px;font-size:24px}.lightbox-thumbs{display:none}}
+/* RESEARCH MODAL */
+.rs-modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.55);z-index:9998;align-items:center;justify-content:center;padding:24px}
+.rs-modal-overlay.active{display:flex}
+.rs-modal{background:var(--white);border-radius:20px;max-width:520px;width:100%;padding:36px 32px 32px;position:relative;animation:rsModalIn .3s ease}
+@keyframes rsModalIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.rs-modal-close{position:absolute;top:16px;right:20px;font-size:28px;color:var(--gray-400);background:none;border:none;cursor:pointer;line-height:1;transition:color .2s}
+.rs-modal-close:hover{color:var(--primary)}
+.rs-modal-badge{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+.rs-modal-badge svg{width:32px;height:32px;color:var(--accent)}
+.rs-modal-uni{font-size:22px;font-weight:800;color:var(--primary)}
+.rs-modal-title{font-size:19px;font-weight:800;color:var(--primary);line-height:1.5;margin-bottom:8px}
+.rs-modal-meta{font-size:14px;color:var(--gray-400);margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid rgba(0,0,0,.06)}
+.rs-modal-body{margin-bottom:24px}
+.rs-modal-body p{font-size:16px;color:var(--gray-600);line-height:1.8;margin-bottom:12px}
+.rs-modal-body p:last-child{margin-bottom:0}
+.rs-modal-body strong{color:var(--primary);font-weight:700}
+.rs-modal-link{display:inline-flex;align-items:center;gap:6px;font-size:16px;font-weight:700;color:var(--white);background:var(--accent);padding:14px 28px;border-radius:12px;text-decoration:none;transition:background .2s,transform .2s}
+.rs-modal-link:hover{background:#2a5ce0;transform:translateY(-2px)}
+.rs-card[data-modal]{cursor:pointer}
+@media(max-width:480px){.rs-modal{padding:28px 20px 24px;margin:12px}.rs-modal-uni{font-size:19px}.rs-modal-title{font-size:17px}.rs-modal-body p{font-size:15px}}

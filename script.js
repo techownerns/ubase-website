@@ -559,3 +559,44 @@ lbImg.addEventListener('touchend',function(e){
   });
 })();
 
+// ===== RESEARCH CARD MODAL =====
+(function(){
+  var overlay = document.getElementById('rsModalOverlay');
+  if(!overlay) return;
+  var closeBtn = document.getElementById('rsModalClose');
+  var downX = 0, downY = 0;
+
+  // pointerdown 위치 저장 — 드래그 vs 클릭 판별용
+  var sliderWrap = document.querySelector('.slider-wrap');
+  if(sliderWrap){
+    sliderWrap.addEventListener('pointerdown', function(e){
+      downX = e.clientX;
+      downY = e.clientY;
+    });
+  }
+
+  // data-modal 카드 클릭 가로채기
+  document.addEventListener('click', function(e){
+    var card = e.target.closest('[data-modal]');
+    if(!card) return;
+    // 5px 이상 이동했으면 드래그 → 모달 열지 않음
+    if(Math.abs(e.clientX - downX) > 5 || Math.abs(e.clientY - downY) > 5) return;
+    e.preventDefault();
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+
+  function closeModal(){
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && overlay.classList.contains('active')) closeModal();
+  });
+})();
+
