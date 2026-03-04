@@ -277,7 +277,8 @@ img{max-width:100%;display:block}
 .rs-card:hover{transform:translateY(-6px);box-shadow:0 12px 36px rgba(0,0,0,0.10)}
 .rs-uni{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
 .rs-uni-logo{display:none}
-.rs-paper-badge{font-size:11px;font-weight:700;color:var(--accent);background:rgba(59,109,245,0.08);border:1px solid rgba(59,109,245,0.18);padding:3px 9px;border-radius:20px;letter-spacing:0.3px;white-space:nowrap;flex-shrink:0;order:2}
+.rs-paper-badge{display:flex;align-items:center;order:2}
+.rs-paper-badge svg{width:18px;height:18px;color:var(--gray-400)}
 .rs-uni-name{font-size:19px;font-weight:800;color:var(--primary);letter-spacing:-0.2px;order:1}
 .rs-year{font-size:12px;font-weight:700;color:var(--accent);background:rgba(59,109,245,0.08);padding:3px 10px;border-radius:20px;white-space:nowrap}
 .rs-headline{font-size:19px;font-weight:800;color:var(--primary);line-height:1.4;margin-bottom:12px}
@@ -285,8 +286,7 @@ img{max-width:100%;display:block}
 .rs-source{display:none}
 .rs-source a{color:var(--accent);font-weight:600;transition:color 0.2s}
 .rs-source a:hover{color:#2a5ce0}
-.rs-cta{display:block;font-size:13px;font-weight:700;color:var(--accent);margin-top:4px;transition:transform 0.2s,color 0.2s}
-.rs-card:hover .rs-cta{transform:translateX(4px);color:#2a5ce0}
+
 
 /* ===== NUMBERS ===== */
 .numbers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
