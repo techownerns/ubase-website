@@ -266,7 +266,7 @@ img{max-width:100%;display:block}
 .slider-wrap.grabbing{cursor:grabbing}
 .slider-track{display:flex;gap:24px;width:max-content;padding:0 max(24px,calc((100vw - 1200px)/2))}
 .rs-card{
-  flex:0 0 380px;background:var(--white);border-radius:20px;
+  flex:0 0 420px;background:var(--white);border-radius:20px;
   padding:36px 30px 30px;position:relative;overflow:hidden;
   box-shadow:0 2px 16px rgba(0,0,0,0.06);
   transition:transform 0.35s ease,box-shadow 0.35s ease;cursor:default;

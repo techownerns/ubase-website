@@ -3,7 +3,7 @@
   const wrap = document.querySelector('.slider-wrap');
   if(!wrap) return;
   let isDown = false, startX, scrollLeft, autoId, pauseTimeout;
-  const SPEED = 0.5; // px per frame
+  const SPEED = 1; // px per frame
 
   function autoScroll(){
     autoId = requestAnimationFrame(function tick(){
