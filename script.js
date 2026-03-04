@@ -386,7 +386,7 @@ const galleryItems = [
   {src:'facility-16.jpg',cap:'CCTV 관제'},
   {src:'facility-17.jpg',cap:'외관'}
 ];
-const blogBase = 'blog-images/';
+const blogBase = 'https://fzekarlxthupgcbfrasy.supabase.co/storage/v1/object/public/website/blog-images/';
 const blogImages = [
   {src:'b01_01.jpg'},{src:'b01_02.jpg'},{src:'b01_03.jpg'},{src:'b01_04.jpg'},{src:'b01_05.jpg'},
   {src:'b02_01.jpg'},{src:'b02_02.jpg'},{src:'b02_03.jpg'},{src:'b02_04.jpg'},{src:'b02_05.jpg'},
