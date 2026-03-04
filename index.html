@@ -380,16 +380,21 @@
         <h2 class="section-title">집중을 강제하는 설계된 공간</h2>
         <p class="section-desc">높은 층고, 자연 채광, 시디즈 의자. 학습 능률을 최적화하는 사소한 부분까지 고민했습니다.</p>
       </div>
-      <div class="facility-gallery reveal-up" style="margin-top:40px">
-        <div class="facility-gallery-track" id="facilityGalleryTop"></div>
+      <!-- 카테고리 탭 -->
+      <div class="fac-tabs reveal-up">
+        <button class="fac-tab active" data-cat="all">전체</button>
+        <button class="fac-tab" data-cat="study">학습 공간</button>
+        <button class="fac-tab" data-cat="building">건물·환경</button>
+        <button class="fac-tab" data-cat="amenity">편의시설</button>
+        <button class="fac-tab" data-cat="info">안내·브랜딩</button>
       </div>
-      <div class="facility-gallery reveal-up" style="margin-top:12px">
-        <div class="facility-gallery-track" id="facilityGalleryBottom"></div>
-      </div>
+
+      <!-- 이미지 그리드 -->
+      <div class="fac-grid reveal-up" id="facGrid"></div>
     </div>
   </section>
 
-  <!-- LIGHTBOX -->
+  <!-- PC 라이트박스 -->
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" id="lightboxClose">&times;</button>
     <button class="lightbox-prev" id="lightboxPrev">&#10094;</button>
@@ -399,6 +404,13 @@
     <div class="lightbox-caption" id="lightboxCaption"></div>
     <div class="lightbox-counter" id="lightboxCounter"></div>
     <div class="lightbox-thumbs" id="lightboxThumbs"></div>
+  </div>
+
+  <!-- 모바일 인스타 뷰어 -->
+  <div class="insta-viewer" id="instaViewer">
+    <button class="insta-close" id="instaClose">&times;</button>
+    <div class="insta-counter" id="instaCounter"></div>
+    <div class="insta-scroll" id="instaScroll"></div>
   </div>
 
   <!-- MENTORING -->

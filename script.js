@@ -365,196 +365,235 @@ if (document.readyState === 'complete') {
   });
 })();
 
-/* ── FACILITY GALLERY + LIGHTBOX ── */
-const defined = 'https://ohuqwtugvafcxfvwizqh.supabase.co/storage/v1/object/public/facility/';
-const galleryItems = [
-  {src:'facility-01.jpg',cap:'1인 독서실 전경'},
-  {src:'facility-02.jpg',cap:'개인 독서 공간'},
-  {src:'facility-03.jpg',cap:'프리미엄 독서실'},
-  {src:'facility-04.jpg',cap:'휴게 공간'},
-  {src:'facility-06.jpg',cap:'로비'},
-  {src:'facility-08.jpg',cap:'안면인식 턴게이트'},
-  {src:'facility-10.jpg',cap:'독서실 조명'},
-  {src:'facility-11.jpg',cap:'복도'},
-  {src:'facility-15.jpg',cap:'사물함'},
-  {src:'facility-16.jpg',cap:'CCTV 관제'},
-  {src:'facility-17.jpg',cap:'외관'}
-];
-const blogBase = 'https://ohuqwtugvafcxfvwizqh.supabase.co/storage/v1/render/image/public/facility/blog-images/';
-const blogImages = [
-  {src:'b01_02.jpg'},{src:'b01_03.jpg'},
-  {src:'b02_05.jpg'},
-  {src:'b03_01.jpg'},{src:'b03_03.jpg'},{src:'b03_05.jpg'},
-  {src:'b04_01.jpg'},{src:'b04_05.jpg'},
-  {src:'b05_02.jpg'},{src:'b05_05.jpg'},
-  {src:'b07_01.jpg'},{src:'b07_03.jpg'},{src:'b07_05.jpg'},
-  {src:'b08_02.jpg'},{src:'b08_04.jpg'},
-  {src:'b09_04.jpg'},
-  {src:'b10_01.jpg'},{src:'b10_02.jpg'},
-  {src:'b11_01.jpg'},{src:'b11_02.jpg'},{src:'b11_03.jpg'},{src:'b11_04.jpg'},
-  {src:'b12_03.jpg'},{src:'b12_04.jpg'},
-  {src:'b13_01.jpg'},{src:'b13_02.jpg'},
-  {src:'b14_01.jpg'},{src:'b14_03.jpg'},{src:'b14_05.jpg'},
-  {src:'b15_01.jpg'},{src:'b15_02.jpg'},{src:'b15_05.jpg'},
-  {src:'b16_05.jpg'},
-  {src:'b17_01.jpg'},{src:'b17_02.jpg'},{src:'b17_05.jpg'},
-  {src:'b18_05.jpg'},
-  {src:'b19_01.jpg'},
-  {src:'b20_03.jpg'}
+/* ── FACILITY GALLERY (TABS + GRID + LIGHTBOX/INSTA VIEWER) ── */
+const BUCKET = 'https://ohuqwtugvafcxfvwizqh.supabase.co/storage/v1/render/image/public/facility/';
+const BUCKET_FULL = 'https://ohuqwtugvafcxfvwizqh.supabase.co/storage/v1/object/public/facility/';
+const THUMB_Q = '?width=400&height=300&resize=cover&quality=75';
+
+const facilityImages = [
+  /* study — 학습 공간 (20) */
+  {src:'facility-01.jpg',cap:'1인 독서실 전경',cat:'study'},
+  {src:'facility-02.jpg',cap:'개인 독서 공간',cat:'study'},
+  {src:'facility-03.jpg',cap:'프리미엄 독서실',cat:'study'},
+  {src:'facility-04.jpg',cap:'휴게 공간',cat:'study'},
+  {src:'facility-06.jpg',cap:'로비',cat:'study'},
+  {src:'b01_02.jpg',cat:'study'},{src:'b01_03.jpg',cat:'study'},
+  {src:'b02_05.jpg',cat:'study'},
+  {src:'b03_01.jpg',cat:'study'},{src:'b03_03.jpg',cat:'study'},
+  {src:'b05_05.jpg',cat:'study'},
+  {src:'b07_03.jpg',cat:'study'},
+  {src:'b09_04.jpg',cat:'study'},
+  {src:'b11_01.jpg',cat:'study'},{src:'b11_02.jpg',cat:'study'},{src:'b11_03.jpg',cat:'study'},
+  {src:'b13_02.jpg',cat:'study'},
+  {src:'b14_01.jpg',cat:'study'},
+  {src:'b17_01.jpg',cat:'study'},{src:'b17_02.jpg',cat:'study'},
+  /* building — 건물·환경 (13) */
+  {src:'facility-08.jpg',cap:'안면인식 턴게이트',cat:'building'},
+  {src:'facility-10.jpg',cap:'독서실 조명',cat:'building'},
+  {src:'facility-11.jpg',cap:'복도',cat:'building'},
+  {src:'facility-17.jpg',cap:'외관',cat:'building'},
+  {src:'b05_02.jpg',cat:'building'},
+  {src:'b10_02.jpg',cat:'building'},
+  {src:'b11_04.jpg',cat:'building'},
+  {src:'b14_03.jpg',cat:'building'},
+  {src:'b15_01.jpg',cat:'building'},{src:'b15_02.jpg',cat:'building'},
+  {src:'b17_05.jpg',cat:'building'},
+  {src:'b19_01.jpg',cat:'building'},
+  {src:'b20_03.jpg',cat:'building'},
+  /* amenity — 편의시설 (6) */
+  {src:'facility-15.jpg',cap:'사물함',cat:'amenity'},
+  {src:'facility-16.jpg',cap:'CCTV 관제',cat:'amenity'},
+  {src:'b03_05.jpg',cat:'amenity'},
+  {src:'b08_02.jpg',cat:'amenity'},
+  {src:'b12_03.jpg',cat:'amenity'},
+  {src:'b14_05.jpg',cat:'amenity'},
+  /* info — 안내·브랜딩 (11) */
+  {src:'b04_01.jpg',cat:'info'},{src:'b04_05.jpg',cat:'info'},
+  {src:'b07_01.jpg',cat:'info'},{src:'b07_05.jpg',cat:'info'},
+  {src:'b08_04.jpg',cat:'info'},
+  {src:'b10_01.jpg',cat:'info'},
+  {src:'b12_04.jpg',cat:'info'},
+  {src:'b13_01.jpg',cat:'info'},
+  {src:'b15_05.jpg',cat:'info'},
+  {src:'b16_05.jpg',cat:'info'},
+  {src:'b18_05.jpg',cat:'info'}
 ];
 
-/* 트랙 초기화 헬퍼 — direction: 1 = →, -1 = ← */
-function initGalleryTrack(trackEl, items, direction){
-  if(!trackEl) return;
-  const doubled = [...items, ...items];
-  doubled.forEach((item) => {
-    const d = document.createElement('div');
-    d.className = 'fgal-slide';
-    const fullSrc = item.base ? item.base + item.src : defined + item.src;
-    const thumbSrc = fullSrc.includes('/render/image/') ? fullSrc + '?width=400&height=280&resize=cover&quality=75' : fullSrc;
-    d.innerHTML = `<img src="${thumbSrc}" alt="${item.cap||''}" loading="lazy">${item.cap ? '<span class="fgal-cap">'+item.cap+'</span>' : ''}`;
-    trackEl.appendChild(d);
+/* ── 그리드 렌더링 ── */
+var currentCat = 'all';
+var currentFiltered = facilityImages.slice();
+
+function renderGrid(cat) {
+  currentCat = cat;
+  var grid = document.getElementById('facGrid');
+  grid.innerHTML = '';
+  currentFiltered = cat === 'all' ? facilityImages : facilityImages.filter(function(i){ return i.cat === cat; });
+  currentFiltered.forEach(function(item, i) {
+    var card = document.createElement('div');
+    card.className = 'fac-card';
+    var thumbUrl = BUCKET + item.src + THUMB_Q;
+    card.innerHTML = '<img src="' + thumbUrl + '" alt="' + (item.cap||'') + '" loading="lazy">'
+      + (item.cap ? '<span class="fac-cap">' + item.cap + '</span>' : '');
+    card.addEventListener('click', function(){ openViewer(i); });
+    grid.appendChild(card);
   });
-  let speed = 0.5 * direction;
-  let pos = direction === -1 ? trackEl.scrollWidth / 2 : 0;
-  let rafId;
-  const halfW = () => trackEl.scrollWidth / 2;
-  function auto(){
-    pos += speed;
-    if(pos >= halfW()) pos -= halfW();
-    if(pos < 0) pos += halfW();
-    trackEl.scrollLeft = pos;
-    rafId = requestAnimationFrame(auto);
+}
+
+/* ── 탭 클릭 ── */
+document.querySelectorAll('.fac-tab').forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.fac-tab').forEach(function(t){ t.classList.remove('active'); });
+    tab.classList.add('active');
+    renderGrid(tab.dataset.cat);
+  });
+});
+
+/* 초기 렌더 */
+renderGrid('all');
+
+/* ── PC/모바일 분기 ── */
+function openViewer(idx) {
+  if (window.innerWidth <= 768) {
+    openInsta(idx);
+  } else {
+    openLB(idx);
   }
-  rafId = requestAnimationFrame(auto);
-  // 드래그
-  let isDrag=false, dragMoved=false, sx, ss;
-  trackEl.addEventListener('mousedown', e=>{
-    isDrag=true; dragMoved=false; sx=e.pageX; ss=pos;
-    cancelAnimationFrame(rafId); trackEl.classList.add('grabbing');
-  });
-  window.addEventListener('mousemove', e=>{
-    if(!isDrag) return;
-    const dx=e.pageX-sx; if(Math.abs(dx)>4) dragMoved=true;
-    pos=ss-dx;
-    if(pos<0) pos+=halfW(); if(pos>=halfW()) pos-=halfW();
-    trackEl.scrollLeft=pos;
-  });
-  window.addEventListener('mouseup', ()=>{
-    if(!isDrag) return; isDrag=false;
-    trackEl.classList.remove('grabbing');
-    rafId=requestAnimationFrame(auto);
-  });
-  // 터치
-  let tx;
-  trackEl.addEventListener('touchstart', e=>{
-    cancelAnimationFrame(rafId); tx=e.touches[0].pageX; ss=pos; dragMoved=false;
-  },{passive:true});
-  trackEl.addEventListener('touchmove', e=>{
-    const dx=e.touches[0].pageX-tx; if(Math.abs(dx)>4) dragMoved=true;
-    pos=ss-dx;
-    if(pos<0) pos+=halfW(); if(pos>=halfW()) pos-=halfW();
-    trackEl.scrollLeft=pos;
-  },{passive:true});
-  trackEl.addEventListener('touchend', ()=>{ rafId=requestAnimationFrame(auto); });
-  trackEl.addEventListener('mouseenter', ()=>{ if(!isDrag) cancelAnimationFrame(rafId); });
-  trackEl.addEventListener('mouseleave', ()=>{ if(!isDrag) rafId=requestAnimationFrame(auto); });
-  return { trackEl, dragMoved:()=>dragMoved };
 }
 
-/* 시설 이미지 + 블로그 이미지 합치기 */
-const facilityRender = defined.replace('/object/','/render/image/');
-const facilityFull = galleryItems.map(i=>({...i, base: facilityRender}));
-const blogFull = blogImages.map(i=>({...i, base: blogBase, cap:''}));
-const topItems = [...facilityFull, ...blogFull.slice(0, Math.ceil(blogFull.length/2))];
-const bottomItems = [...blogFull.slice(Math.ceil(blogFull.length/2)), ...facilityFull];
+/* ── PC 라이트박스 ── */
+var lb = document.getElementById('lightbox');
+var lbImg = document.getElementById('lightboxImg');
+var lbCounter = document.getElementById('lightboxCounter');
+var lbCaption = document.getElementById('lightboxCaption');
+var lbSpinner = document.getElementById('lightboxSpinner');
+var thumbStrip = document.getElementById('lightboxThumbs');
+var cur = 0, scale = 1, startX = 0, diffX = 0, dragging = false;
 
-var dragMoved = false;
-const topTrack = initGalleryTrack(document.getElementById('facilityGalleryTop'), topItems, 1);
-const bottomTrack = initGalleryTrack(document.getElementById('facilityGalleryBottom'), bottomItems, -1);
-/* dragMoved 동기화 (라이트박스 클릭 방지용) */
-Object.defineProperty(window, '_fgalDrag', {get:()=> (topTrack&&topTrack.dragMoved()) || (bottomTrack&&bottomTrack.dragMoved()) });
+function buildThumbs() {
+  thumbStrip.innerHTML = '';
+  currentFiltered.forEach(function(item, i) {
+    var t = document.createElement('img');
+    t.src = BUCKET + item.src + '?width=80&height=60&resize=cover&quality=60';
+    t.alt = ''; t.className = 'lb-thumb'; t.dataset.idx = i;
+    t.addEventListener('click', function(){ cur = i; lbUpdate(); });
+    thumbStrip.appendChild(t);
+  });
+}
 
-/* Lightbox */
-var lb=document.getElementById('lightbox');
-var lbImg=document.getElementById('lightboxImg');
-var lbCounter=document.getElementById('lightboxCounter');
-var lbCaption=document.getElementById('lightboxCaption');
-var lbSpinner=document.getElementById('lightboxSpinner');
-var thumbStrip=document.getElementById('lightboxThumbs');
-var cur=0,scale=1,startX=0,diffX=0,dragging=false;
-
-/* Build thumbs */
-galleryItems.forEach(function(item,i){
-  var t=document.createElement('img');t.src=defined+item.src;t.alt='';
-  t.className='lb-thumb';t.dataset.idx=i;
-  t.addEventListener('click',function(){cur=i;update();});
-  thumbStrip.appendChild(t);
-});
-
-function openLB(i){cur=i;scale=1;lb.classList.add('active');update();document.body.style.overflow='hidden';}
-function closeLB(){lb.classList.remove('active');document.body.style.overflow='';resetZoom();}
-function resetZoom(){scale=1;lbImg.style.transform='';}
-function update(){
-  lbSpinner.style.display='block';lbImg.style.opacity='0';
-  var img=new Image();img.src=defined+galleryItems[cur].src;
-  img.onload=function(){
-    lbImg.src=img.src;lbImg.style.opacity='1';lbSpinner.style.display='none';
+function openLB(i) {
+  buildThumbs();
+  cur = i; scale = 1;
+  lb.classList.add('active');
+  lbUpdate();
+  document.body.style.overflow = 'hidden';
+}
+function closeLB() { lb.classList.remove('active'); document.body.style.overflow = ''; resetZoom(); }
+function resetZoom() { scale = 1; lbImg.style.transform = ''; }
+function lbUpdate() {
+  lbSpinner.style.display = 'block'; lbImg.style.opacity = '0';
+  var img = new Image();
+  img.src = BUCKET_FULL + currentFiltered[cur].src;
+  img.onload = function() {
+    lbImg.src = img.src; lbImg.style.opacity = '1'; lbSpinner.style.display = 'none';
   };
-  lbCounter.textContent=(cur+1)+' / '+galleryItems.length;
-  lbCaption.textContent=galleryItems[cur].cap;
+  lbCounter.textContent = (cur+1) + ' / ' + currentFiltered.length;
+  lbCaption.textContent = currentFiltered[cur].cap || '';
   resetZoom();
-  /* Active thumb */
-  var thumbs=thumbStrip.querySelectorAll('.lb-thumb');
-  thumbs.forEach(function(t,i){t.classList.toggle('active',i===cur);});
-  thumbs[cur].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  var thumbs = thumbStrip.querySelectorAll('.lb-thumb');
+  thumbs.forEach(function(t, i){ t.classList.toggle('active', i === cur); });
+  if (thumbs[cur]) thumbs[cur].scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
 }
-function go(d){cur=(cur+d+galleryItems.length)%galleryItems.length;update();}
+function lbGo(d) { cur = (cur + d + currentFiltered.length) % currentFiltered.length; lbUpdate(); }
 
-document.getElementById('lightboxClose').addEventListener('click',closeLB);
-document.getElementById('lightboxPrev').addEventListener('click',function(){go(-1);});
-document.getElementById('lightboxNext').addEventListener('click',function(){go(1);});
-lb.addEventListener('click',function(e){if(e.target===lb)closeLB();});
-document.addEventListener('keydown',function(e){
-  if(!lb.classList.contains('active'))return;
-  if(e.key==='Escape')closeLB();
-  if(e.key==='ArrowLeft')go(-1);
-  if(e.key==='ArrowRight')go(1);
+document.getElementById('lightboxClose').addEventListener('click', closeLB);
+document.getElementById('lightboxPrev').addEventListener('click', function(){ lbGo(-1); });
+document.getElementById('lightboxNext').addEventListener('click', function(){ lbGo(1); });
+lb.addEventListener('click', function(e){ if(e.target === lb) closeLB(); });
+document.addEventListener('keydown', function(e) {
+  if (!lb.classList.contains('active')) return;
+  if (e.key === 'Escape') closeLB();
+  if (e.key === 'ArrowLeft') lbGo(-1);
+  if (e.key === 'ArrowRight') lbGo(1);
 });
 
-/* Touch swipe */
-lbImg.addEventListener('touchstart',function(e){
+/* 라이트박스 터치 스와이프 */
+lbImg.addEventListener('touchstart', function(e){
   if(e.touches.length===1){startX=e.touches[0].clientX;dragging=true;diffX=0;}
 },{passive:true});
-lbImg.addEventListener('touchmove',function(e){
+lbImg.addEventListener('touchmove', function(e){
   if(!dragging||e.touches.length!==1)return;diffX=e.touches[0].clientX-startX;
 },{passive:true});
-lbImg.addEventListener('touchend',function(){
+lbImg.addEventListener('touchend', function(){
   if(!dragging)return;dragging=false;
-  if(Math.abs(diffX)>50){diffX>0?go(-1):go(1);}
+  if(Math.abs(diffX)>50){diffX>0?lbGo(-1):lbGo(1);}
 });
-
-/* Pinch to zoom */
+/* 핀치 줌 */
 var initDist=0;
-lbImg.addEventListener('touchstart',function(e){
+lbImg.addEventListener('touchstart', function(e){
   if(e.touches.length===2){
     initDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
   }
 },{passive:true});
-lbImg.addEventListener('touchmove',function(e){
+lbImg.addEventListener('touchmove', function(e){
   if(e.touches.length===2){
     var d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
     scale=Math.min(3,Math.max(1,scale*(d/initDist)));initDist=d;
     lbImg.style.transform='scale('+scale+')';e.preventDefault();
   }
 },{passive:false});
-/* Double tap zoom */
+/* 더블탭 줌 */
 var lastTap=0;
-lbImg.addEventListener('touchend',function(e){
+lbImg.addEventListener('touchend', function(e){
   if(e.touches.length>0)return;
   var now=Date.now();
   if(now-lastTap<300){scale=scale>1?1:2;lbImg.style.transform='scale('+scale+')';}
   lastTap=now;
+});
+
+/* ── 모바일 인스타 뷰어 ── */
+var instaEl = document.getElementById('instaViewer');
+var instaScroll = document.getElementById('instaScroll');
+var instaCounter = document.getElementById('instaCounter');
+
+function openInsta(idx) {
+  instaScroll.innerHTML = '';
+  currentFiltered.forEach(function(item, i) {
+    var slide = document.createElement('div');
+    slide.className = 'insta-slide';
+    slide.dataset.idx = i;
+    var imgUrl = BUCKET_FULL + item.src;
+    slide.innerHTML = '<img src="' + imgUrl + '" alt="' + (item.cap||'') + '">'
+      + (item.cap ? '<div class="insta-slide-cap">' + item.cap + '</div>' : '');
+    instaScroll.appendChild(slide);
+  });
+  instaEl.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  /* 해당 인덱스로 스크롤 */
+  setTimeout(function(){
+    var target = instaScroll.children[idx];
+    if(target) target.scrollIntoView({behavior:'instant'});
+    updateInstaCounter();
+  }, 50);
+  /* 스크롤 시 카운터 업데이트 */
+  instaScroll.addEventListener('scroll', updateInstaCounter);
+}
+
+function updateInstaCounter() {
+  var scrollTop = instaScroll.scrollTop;
+  var slideH = instaScroll.children[0] ? instaScroll.children[0].offsetHeight : 1;
+  var idx = Math.round(scrollTop / slideH);
+  instaCounter.textContent = (idx + 1) + ' / ' + currentFiltered.length;
+}
+
+function closeInsta() {
+  instaEl.classList.remove('active');
+  document.body.style.overflow = '';
+  instaScroll.removeEventListener('scroll', updateInstaCounter);
+}
+
+document.getElementById('instaClose').addEventListener('click', closeInsta);
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && instaEl.classList.contains('active')) closeInsta();
 });
 
 // ===== STICKY MOBILE CTA =====
