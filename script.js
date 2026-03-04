@@ -1,4 +1,4 @@
-// ===== RESEARCH SLIDER (drag/touch swipe) =====
+﻿// ===== RESEARCH SLIDER (drag/touch swipe) =====
 (function(){
   const wrap = document.querySelector('.slider-wrap');
   const track = document.querySelector('.slider-track');
@@ -490,3 +490,4 @@ lbImg.addEventListener('touchend',function(e){
     });
   });
 })();
+
