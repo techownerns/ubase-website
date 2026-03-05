@@ -299,20 +299,20 @@ img{max-width:100%;display:block}
 .number-value.glow{}
 
 /* ===== MANAGEMENT SYSTEM (CARD GRID) ===== */
-.system-cards-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:40px}
+.system-cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
 .system-card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06);transition:transform 0.3s ease,box-shadow 0.3s ease}
 .system-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.12)}
-.system-card-img{width:100%;aspect-ratio:4/3;overflow:hidden;background:var(--gray-100)}
-.system-card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s ease}
-.system-card:hover .system-card-img img{transform:scale(1.05)}
+.system-card-img{width:100%;height:220px;overflow:hidden;background:var(--gray-100);position:relative}
+.system-card-img img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.08);transition:transform 0.4s ease}
+.system-card:hover .system-card-img img{transform:scale(1.13)}
+.system-card-num{position:absolute;top:12px;left:14px;z-index:2;font-size:32px;font-weight:900;color:#fff;line-height:1;text-shadow:0 2px 8px rgba(0,0,0,0.4)}
 .system-card-body{padding:24px 24px 28px}
-.system-card-num{font-size:36px;font-weight:900;color:var(--accent);opacity:0.25;line-height:1;display:block;margin-bottom:10px}
 .system-card-body h3{font-size:18px;font-weight:800;color:var(--primary);margin-bottom:10px}
 .system-card-body p{font-size:14px;color:var(--gray-600);line-height:1.7;margin-bottom:14px}
 .system-card-body ul{display:flex;flex-direction:column;gap:6px}
 .system-card-body li{font-size:13px;color:var(--gray-400);padding-left:14px;position:relative}
 .system-card-body li::before{content:"";position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:var(--accent)}
-@media(max-width:1024px){.system-cards-grid{grid-template-columns:repeat(3,1fr);gap:20px}}
+@media(max-width:1024px){.system-cards-grid{grid-template-columns:repeat(2,1fr);gap:20px}}
 @media(max-width:768px){.system-cards-grid{grid-template-columns:repeat(2,1fr);gap:16px}.system-card-body{padding:18px 16px 22px}}
 @media(max-width:480px){.system-cards-grid{grid-template-columns:1fr;max-width:400px;margin-left:auto;margin-right:auto}}
 

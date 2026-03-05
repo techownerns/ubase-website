@@ -342,6 +342,8 @@ if (document.readyState === 'complete') {
   window.addEventListener('load', initNaverMaps);
 }
 
+
+
 // ===== 멘토 인터뷰 모달 =====
 (function(){
   var mentorData={
@@ -741,14 +743,45 @@ document.addEventListener('keydown', function(e) {
   var overlay = document.getElementById('rsModalOverlay');
   if(!overlay) return;
   var closeBtn = document.getElementById('rsModalClose');
+  var modalUni = document.getElementById('rsModalUni');
+  var modalTitle = document.getElementById('rsModalTitle');
+  var modalMeta = document.getElementById('rsModalMeta');
+  var modalBody = document.getElementById('rsModalBody');
+  var modalLink = document.getElementById('rsModalLink');
 
-  // data-modal 카드 클릭 가로채기
+  var researchDetails = {
+    '연세대학교': {meta:'PubMed · 2024', body:'<p>본 연구는 대학생의 학업적 자기효능감과 학습환경 간의 상호작용이 학업 성과에 미치는 영향을 분석하였습니다.</p><p><strong>핵심 발견:</strong> 지지적인 학습 환경(조용한 공간, 구조화된 시간표, 또래 학습 분위기)이 학생의 자기효능감을 유의미하게 높이고, 이는 집중 지속 시간 연장과 학업 성취도 향상으로 이어졌습니다.</p><p><strong>시사점:</strong> 의지가 아닌 환경 설계가 지속 가능한 학습 습관의 핵심 동력임을 실증적으로 확인하였습니다.</p>'},
+    '하버드대학교': {meta:'PubMed · 2019', body:'<p>본 연구는 의지력(self-control)의 한계를 인정하고, 환경을 사전에 설계하는 전략이 자기조절에 더 효과적임을 밝혔습니다.</p><p><strong>핵심 발견:</strong> 유혹 요소를 물리적으로 제거한 환경에서 학습한 그룹이 의지력에만 의존한 그룹보다 목표 달성률이 2배 이상 높았습니다.</p><p><strong>시사점:</strong> 의지력 훈련보다 환경 설계가 장기적 자기조절 성공의 핵심 전략입니다.</p>'},
+    '고려대학교': {meta:'IJESTY · 2023', body:'<p>본 연구는 뇌파(EEG) 측정을 통해 학습 환경 설계 방식이 집중도에 미치는 영향을 정량적으로 분석하였습니다.</p><p><strong>핵심 발견:</strong> 소음 차단, 휴대폰 격리 등 통제된 학습 환경에서 알파파·베타파 비율이 유의미하게 개선되어 깊은 집중 상태가 더 오래 유지되었습니다.</p><p><strong>시사점:</strong> 학습 환경의 물리적 설계가 뇌 수준에서 집중력을 좌우한다는 과학적 근거를 제시합니다.</p>'},
+    '스탠퍼드대학교': {meta:'PubMed · 2014', body:'<p>본 연구는 물리적 환경 변화(걷기)가 창의적 사고에 미치는 영향을 실험적으로 검증하였습니다.</p><p><strong>핵심 발견:</strong> 환경을 바꾼 그룹(실내→실외 걷기)의 창의적 사고 점수가 평균 81% 향상되었으며, 이는 환경이 인지 수행에 직접 영향을 미침을 보여줍니다.</p><p><strong>시사점:</strong> 학습 공간의 물리적 특성이 사고력과 문제해결 능력에 직접적인 영향을 미칩니다.</p>'},
+    '서울대학교': {meta:'Springer · 2001', body:'<p>본 연구는 고등학생 1,012명을 대상으로 교실 환경 인식이 학업 성취도에 미치는 영향을 분석하였습니다.</p><p><strong>핵심 발견:</strong> 교실의 응집력, 참여도, 질서 수준 등 환경적 요인이 학업 성취를 유의미하게 예측하였으며, 물리적 환경 개선만으로도 성적 향상 효과가 나타났습니다.</p><p><strong>시사점:</strong> 학습 환경의 질이 개인 능력 못지않게 성적에 중요한 변수임을 확인하였습니다.</p>'},
+    '프린스턴대학교': {meta:'PubMed · 2011', body:'<p>본 연구는 시각적 혼란(물건 배치, 정리 상태)이 뇌의 정보 처리 능력에 미치는 영향을 fMRI로 분석하였습니다.</p><p><strong>핵심 발견:</strong> 시각적으로 어수선한 환경에서 뇌의 주의력 자원이 분산되어 집중력과 작업 성과가 유의미하게 저하되었습니다.</p><p><strong>시사점:</strong> 정돈된 학습 공간이 뇌의 처리 효율을 높여 더 깊은 집중을 가능하게 합니다.</p>'},
+    '펜실베이니아대학교': {meta:'PMC · 2016', body:'<p>본 연구는 Angela Duckworth의 Grit(끈기) 이론을 바탕으로, 환경이 끈기 발휘에 미치는 영향을 분석하였습니다.</p><p><strong>핵심 발견:</strong> 의지(Grit)는 유혹이 제거된 전략적 환경에서 더 강력하게 발휘되며, 환경 없이 의지만으로는 성과 달성이 제한적이었습니다.</p><p><strong>시사점:</strong> 끈기는 타고나는 것이 아니라, 환경이 뒷받침될 때 극대화되는 역량입니다.</p>'},
+    'MIT': {meta:'MIT EdTech · 2003', body:'<p>본 연구는 MIT의 TEAL(Technology-Enabled Active Learning) 프로젝트로, 강의식 교실을 소그룹 상호작용 교실로 재설계한 결과를 분석하였습니다.</p><p><strong>핵심 발견:</strong> 환경 재설계 후 학생 이해도가 유의미하게 향상되었고, 낙제율이 50% 감소하였습니다.</p><p><strong>시사점:</strong> 학습 공간의 물리적 재설계만으로도 학업 성과를 크게 개선할 수 있습니다.</p>'},
+    '예일대학교': {meta:'Yale Poorvu Center', body:'<p>본 연구는 능동적 학습(Active Learning)을 촉진하는 교실 환경 설계의 효과를 분석하였습니다.</p><p><strong>핵심 발견:</strong> 능동적 학습을 유도하는 환경 설정이 학생 참여도를 높이고, 특히 성적 하위권 학생들의 격차 해소에 크게 기여하였습니다.</p><p><strong>시사점:</strong> 환경 설계를 통한 학습 참여 유도가 모든 수준의 학생에게 효과적입니다.</p>'},
+    '콜럼비아대학교': {meta:'Columbia CTL', body:'<p>본 연구는 높은 신뢰(High Trust)와 낮은 스트레스(Low Stress) 환경이 학습에 미치는 영향을 분석하였습니다.</p><p><strong>핵심 발견:</strong> 심리적 안전감이 확보된 환경에서 학생의 자발적 의지가 높아지고, 이는 학업 성공과 직접적으로 연결되었습니다.</p><p><strong>시사점:</strong> 물리적 환경뿐 아니라 심리적 환경(신뢰, 안정감)도 학습 성과의 핵심 요인입니다.</p>'}
+  };
+
+  // 모든 rs-card 클릭 가로채기
   document.addEventListener('click', function(e){
-    var card = e.target.closest('[data-modal]');
+    var card = e.target.closest('.rs-card');
     if(!card) return;
-    // 슬라이더 드래그 중이면 모달 열지 않음
     if(window._sliderDragged) return;
     e.preventDefault();
+
+    var uniName = card.querySelector('.rs-uni-name');
+    var headline = card.querySelector('.rs-headline');
+    var href = card.getAttribute('href');
+    var uni = uniName ? uniName.textContent.trim() : '';
+    var title = headline ? headline.textContent.trim() : '';
+    var detail = researchDetails[uni];
+
+    modalUni.textContent = uni;
+    modalTitle.textContent = title;
+    modalMeta.textContent = detail ? detail.meta : '';
+    modalBody.innerHTML = detail ? detail.body : '';
+    modalLink.href = href || '#';
+
     overlay.classList.add('active');
     document.body.style.overflow = 'hidden';
   });
