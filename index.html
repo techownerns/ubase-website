@@ -644,6 +644,29 @@
     </div>
   </footer>
 
+  <!-- CHATBOT -->
+  <button class="chatbot-fab" id="chatbotFab" aria-label="AI 상담">
+    <svg class="chatbot-fab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <svg class="chatbot-fab-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <div class="chatbot-panel" id="chatbotPanel">
+    <div class="chatbot-header">
+      <span class="chatbot-header-title">UBASE AI 상담</span>
+      <span class="chatbot-header-status">온라인</span>
+    </div>
+    <div class="chatbot-messages" id="chatbotMessages">
+      <div class="chatbot-msg chatbot-msg-bot">
+        <div class="chatbot-msg-bubble">안녕하세요! UBASE 관리형 독서실입니다. 궁금한 점을 물어보세요.</div>
+      </div>
+    </div>
+    <form class="chatbot-input" id="chatbotForm">
+      <input type="text" id="chatbotInput" placeholder="메시지를 입력하세요..." autocomplete="off">
+      <button type="submit" aria-label="전송">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </form>
+  </div>
+
   <script src="script.js?v=20260305b"></script>
 </body>
 </html>

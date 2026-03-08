@@ -876,3 +876,72 @@ document.addEventListener('keydown', function(e) {
   }
 })();
 
+/* ── CHATBOT ── */
+(function(){
+  var CHAT_URL = 'https://ohuqwtugvafcxfvwizqh.supabase.co/functions/v1/chat';
+  var fab = document.getElementById('chatbotFab');
+  var panel = document.getElementById('chatbotPanel');
+  var form = document.getElementById('chatbotForm');
+  var input = document.getElementById('chatbotInput');
+  var msgBox = document.getElementById('chatbotMessages');
+  if(!fab || !panel) return;
+
+  var history = [];
+
+  fab.addEventListener('click', function(){
+    var open = fab.classList.toggle('active');
+    panel.classList.toggle('active');
+    if(open) input.focus();
+  });
+
+  function addMsg(role, text){
+    var wrap = document.createElement('div');
+    wrap.className = 'chatbot-msg chatbot-msg-' + (role === 'user' ? 'user' : 'bot');
+    var bubble = document.createElement('div');
+    bubble.className = 'chatbot-msg-bubble';
+    bubble.textContent = text;
+    wrap.appendChild(bubble);
+    msgBox.appendChild(wrap);
+    msgBox.scrollTop = msgBox.scrollHeight;
+    return wrap;
+  }
+
+  function addTyping(){
+    var wrap = document.createElement('div');
+    wrap.className = 'chatbot-msg chatbot-msg-bot chatbot-msg-typing';
+    wrap.innerHTML = '<div class="chatbot-msg-bubble"><span></span><span></span><span></span></div>';
+    msgBox.appendChild(wrap);
+    msgBox.scrollTop = msgBox.scrollHeight;
+    return wrap;
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var text = input.value.trim();
+    if(!text) return;
+    input.value = '';
+
+    addMsg('user', text);
+    history.push({ role: 'user', content: text });
+
+    var typing = addTyping();
+
+    fetch(CHAT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: history })
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      typing.remove();
+      var reply = data.reply || data.error || '죄송합니다. 다시 시도해주세요.';
+      addMsg('bot', reply);
+      history.push({ role: 'assistant', content: reply });
+    })
+    .catch(function(){
+      typing.remove();
+      addMsg('bot', '네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+    });
+  });
+})();
+
