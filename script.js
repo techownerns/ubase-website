@@ -885,6 +885,7 @@ document.addEventListener('keydown', function(e) {
   if(!fab || !panel) return;
 
   var history = [];
+  var sessionId = 'cb_' + Date.now() + '_' + Math.random().toString(36).slice(2,8);
 
   function openChatbot(){
     if(!fab.classList.contains('active')){
@@ -943,11 +944,12 @@ document.addEventListener('keydown', function(e) {
     fetch(CHAT_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: history })
+      body: JSON.stringify({ messages: history, session_id: sessionId })
     })
     .then(function(r){ return r.json(); })
     .then(function(data){
       typing.remove();
+      if(data.session_id) sessionId = data.session_id;
       var reply = data.reply || data.error || '죄송합니다. 다시 시도해주세요.';
       addMsg('bot', reply);
       history.push({ role: 'assistant', content: reply });
